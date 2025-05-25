@@ -45,19 +45,13 @@ namespace nwen
     
     // Updates a record in the table
     bool VectorDbTable::update(unsigned long id, movie m) {
-        // Find the movie with the specified ID
         int index = findMovieIndexById(id);
-        
         if (index == -1) {
-            return false;  // Movie with specified ID not found
+            return false;
         }
-        
-        // Update the movie record
-        // Preserve the original ID to maintain consistency
-        m.id = id;  // Ensure the ID remains the same
+
         movies[index] = m;
-        
-        return true;  // Update successful
+        return true;
     }
     
     // Removes a record from the table
@@ -83,5 +77,17 @@ namespace nwen
             }
         }
         return -1;  // Movie not found
+    }
+
+    void VectorDbTable::clear() {
+        movies.clear();
+    }
+
+    bool VectorDbTable::empty() const {
+        return movies.empty();
+    }
+
+    void VectorDbTable::reserve(size_t capacity) {
+        movies.reserve(capacity);
     }
 }
